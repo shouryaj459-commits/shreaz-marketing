@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply — SHREAZ MARKETING</title>
+  <meta name="description" content="Apply to work with SHREAZ MARKETING. A few quick questions and we'll map the fastest path to profitable growth for your brand." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- International phone field (flags + validation) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/css/intlTelInput.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
+  <style>
+    /* ================= Apply flow (Typeform-style) ================= */
+    body{
+      background:radial-gradient(125% 120% at 50% -10%, #17493a 0%, #0e2b22 55%, #091d17 100%);
+      background-attachment:fixed;color:#fff;min-height:100vh;
+    }
+    .grid-bg,.glow{display:none;} /* immersive plain green, no site grid */
+
+    /* ---- Preloader ---- */
+    #preloader{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;gap:24px;background:#0b201a;transition:opacity .6s ease,visibility .6s;}
+    #preloader.done{opacity:0;visibility:hidden;pointer-events:none;}
+    .pl-logo{font-weight:800;font-size:38px;letter-spacing:.06em;}
+    .pl-logo .br{color:var(--accent);}
+    .pl-bar{width:210px;height:3px;border-radius:9px;background:rgba(255,255,255,.14);overflow:hidden;}
+    .pl-bar i{display:block;height:100%;width:0;background:var(--accent);animation:plload 1.5s cubic-bezier(.5,.1,.2,1) forwards;}
+    @keyframes plload{0%{width:0;}70%{width:82%;}100%{width:100%;}}
+
+    /* ---- Top progress + chrome ---- */
+    .tf-top{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,.12);z-index:40;}
+    .tf-top i{display:block;height:100%;width:14%;background:var(--accent);transition:width .5s cubic-bezier(.4,0,.2,1);}
+    .tf-logo{position:fixed;top:22px;left:26px;z-index:41;font-weight:800;font-size:22px;letter-spacing:.05em;color:#fff;}
+    .tf-logo .br{color:var(--accent);}
+    .tf-close{position:fixed;top:24px;right:26px;z-index:41;color:rgba(255,255,255,.6);font-size:14px;
+      display:flex;align-items:center;gap:8px;transition:color .2s;}
+    .tf-close:hover{color:#fff;}
+    .tf-close span{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.3);
+      display:flex;align-items:center;justify-content:center;font-size:15px;}
+
+    /* ---- Stage + questions ---- */
+    .tf-stage{min-height:100vh;display:flex;align-items:center;padding:110px 0 120px;}
+    .tf-stage .wrap{width:100%;display:flex;justify-content:center;}
+    .q{display:none;width:100%;max-width:640px;margin:0 auto;}
+    .q.active{display:block;animation:qin .55s cubic-bezier(.2,.7,.2,1);}
+    @keyframes qin{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:none;}}
+    .q-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:6px;}
+    .q-num{flex:0 0 auto;margin-top:7px;width:26px;height:26px;border-radius:7px;background:var(--accent);
+      color:#0d130c;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+    .q-title{font-size:clamp(1.5rem,3.6vw,2.35rem);font-weight:600;line-height:1.2;letter-spacing:-.01em;margin:0;}
+    .q-sub{color:rgba(255,255,255,.6);font-size:15px;margin:8px 0 22px 38px;line-height:1.55;}
+
+    .q-input{width:100%;background:transparent;border:0;border-bottom:2px solid rgba(255,255,255,.35);
+      color:#fff;font-size:clamp(1.2rem,2.8vw,1.9rem);padding:10px 2px;font-family:inherit;margin-top:14px;
+      transition:border-color .2s;}
+    .q-input:focus{outline:none;border-bottom-color:var(--accent);}
+    .q-input::placeholder{color:rgba(255,255,255,.4);}
+
+    .opts{display:flex;flex-direction:column;gap:11px;margin-top:14px;max-width:540px;}
+    .opt{display:flex;align-items:center;gap:14px;padding:15px 18px;border:1px solid rgba(255,255,255,.3);
+      border-radius:12px;cursor:pointer;background:rgba(255,255,255,.04);color:#fff;text-align:left;
+      font-family:inherit;transition:border-color .2s,background .2s,transform .1s;}
+    .opt:hover{border-color:var(--accent);background:rgba(131,222,124,.1);}
+    .opt.sel{border-color:var(--accent);background:rgba(131,222,124,.16);}
+    .opt:active{transform:scale(.99);}
+    .opt .k{flex:0 0 auto;width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,255,255,.4);
+      display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;transition:.2s;}
+    .opt.sel .k{background:var(--accent);color:#0d130c;border-color:var(--accent);}
+    .opt .t{font-size:16px;}
+
+    .c-lab{display:block;font-size:15px;color:rgba(255,255,255,.85);margin:26px 0 4px;}
+    .c-lab:first-of-type{margin-top:16px;}
+
+    .q-actions{display:flex;align-items:center;gap:16px;margin-top:30px;flex-wrap:wrap;}
+    .ok{background:#0c1a15;color:#fff;border:0;border-radius:8px;padding:12px 24px;font-weight:600;
+      font-size:15px;cursor:pointer;font-family:inherit;transition:background .2s,transform .1s;}
+    .ok:hover{background:#04100b;}
+    .ok:active{transform:scale(.97);}
+    .hint{color:rgba(255,255,255,.5);font-size:13px;}
+    .hint b{color:#fff;font-weight:600;}
+    .tf-err{color:#ffb4b4;font-size:14px;margin-top:16px;min-height:18px;}
+
+    /* ---- Bottom nav chevrons ---- */
+    .tf-nav{position:fixed;right:26px;bottom:26px;z-index:41;display:flex;gap:2px;}
+    .tf-nav button{width:44px;height:40px;background:#0c1a15;border:0;color:#fff;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .2s;}
+    .tf-nav button:hover:not(:disabled){background:#04100b;}
+    .tf-nav button:first-child{border-radius:8px 0 0 8px;}
+    .tf-nav button:last-child{border-radius:0 8px 8px 0;}
+    .tf-nav button:disabled{opacity:.35;cursor:not-allowed;}
+
+    /* ---- Success ---- */
+    .tf-done{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:120px 20px;}
+    .tf-done.show{display:flex;animation:qin .6s ease;}
+    .tf-check{width:76px;height:76px;border-radius:50%;background:rgba(131,222,124,.18);color:var(--accent);
+      display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:24px;}
+    .tf-done h2{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;letter-spacing:-.02em;margin:0 0 12px;}
+    .tf-done p{color:rgba(255,255,255,.6);max-width:460px;margin:0 0 28px;font-size:16px;line-height:1.6;}
+
+    /* ---- intl-tel-input dark theme ---- */
+    .iti{width:100%;}
+    .iti input,.iti input[type=tel]{width:100%;background:transparent;border:0;
+      border-bottom:2px solid rgba(255,255,255,.35);color:#fff;font-size:clamp(1.1rem,2.4vw,1.6rem);
+      padding:10px 2px;font-family:inherit;transition:border-color .2s;}
+    .iti input:focus{outline:none;border-bottom-color:var(--accent);}
+    .iti input::placeholder{color:rgba(255,255,255,.4);}
+    .iti--separate-dial-code .iti__selected-dial-code{color:#fff;}
+    .iti__selected-flag{background:transparent!important;border-radius:6px;}
+    .iti__selected-flag:hover{background:rgba(255,255,255,.06)!important;}
+    .iti__country-list{color:#0d130c;border-radius:10px;text-align:left;}
+
+    @media(prefers-reduced-motion:reduce){.pl-bar i{animation-duration:.4s;}}
+    @media(max-width:560px){.tf-logo,.tf-close{top:16px;}.tf-logo{left:18px;}.tf-close{right:18px;}}
+  </style>
+</head>
+<body>
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div class="pl-logo"><span class="br">[</span>S.M<span class="br">]</span></div>
+    <div class="pl-bar"><i></i></div>
+  </div>
+
+  <!-- TOP PROGRESS -->
+  <div class="tf-top"><i id="barFill"></i></div>
+  <a href="index.html" class="tf-logo"><span class="br">[</span>S.M<span class="br">]</span></a>
+  <a href="index.html" class="tf-close">Exit <span>&times;</span></a>
+
+  <!-- FORM -->
+  <form id="applyForm" autocomplete="on">
+    <div class="tf-stage" id="tfStage">
+      <div class="wrap">
+
+        <!-- 1. Name -->
+        <div class="q active" data-type="text">
+          <div class="q-head"><span class="q-num">1</span><h2 class="q-title">First — what's your name?</h2></div>
+          <input class="q-input" id="q_name" type="text" placeholder="Type your answer here…" autocomplete="name" />
+          <div class="q-actions"><button type="button" class="ok" data-ok>OK</button><span class="hint">press <b>Enter &crarr;</b></span></div>
+        </div>
+
+        <!-- 2. Website -->
+        <div class="q" data-type="text">
+          <div class="q-head"><span class="q-num">2</span><h2 class="q-title">Share your website or Instagram.</h2></div>
+          <p class="q-sub">We'll review it to understand your current funnel and customer journey.</p>
+          <input class="q-input" id="q_web" type="text" placeholder="yourbrand.com" autocomplete="url" />
+          <div class="q-actions"><button type="button" class="ok" data-ok>OK</button><span class="hint">press <b>Enter &crarr;</b></span></div>
+        </div>
+
+        <!-- 3. Revenue -->
+        <div class="q" data-type="options">
+          <div class="q-head"><span class="q-num">3</span><h2 class="q-title">What's your current monthly revenue?</h2></div>
+          <p class="q-sub">Answer honestly — it helps us assess where you are and how we can help.</p>
+          <div class="opts">
+            <button type="button" class="opt" data-k="A" data-v="Under $10K/mo"><span class="k">A</span><span class="t">Under $10K / month</span></button>
+            <button type="button" class="opt" data-k="B" data-v="$10K–$30K/mo"><span class="k">B</span><span class="t">$10K – $30K / month</span></button>
+            <button type="button" class="opt" data-k="C" data-v="$30K–$50K/mo"><span class="k">C</span><span class="t">$30K – $50K / month</span></button>
+            <button type="button" class="opt" data-k="D" data-v="$50K–$100K/mo"><span class="k">D</span><span class="t">$50K – $100K / month</span></button>
+            <button type="button" class="opt" data-k="E" data-v="$100K–$150K/mo"><span class="k">E</span><span class="t">$100K – $150K / month</span></button>
+            <button type="button" class="opt" data-k="F" data-v="$150K+/mo"><span class="k">F</span><span class="t">$150K+ / month</span></button>
+          </div>
+          <div class="q-actions"><button type="button" class="ok" data-ok>OK</button><span class="hint">or press <b>A–F</b></span></div>
+        </div>
+
+        <!-- 4. Ad budget -->
+        <div class="q" data-type="options">
+          <div class="q-head"><span class="q-num">4</span><h2 class="q-title">What's your monthly ad-spend budget?</h2></div>
+          <p class="q-sub">Roughly what you can invest into paid media each month.</p>
+          <div class="opts">
+            <button type="button" class="opt" data-k="A" data-v="$0 (not running ads yet)"><span class="k">A</span><span class="t">$0 — not running ads yet</span></button>
+            <button type="button" class="opt" data-k="B" data-v="$1K–$5K/mo"><span class="k">B</span><span class="t">$1K – $5K / month</span></button>
+            <button type="button" class="opt" data-k="C" data-v="$5K–$10K/mo"><span class="k">C</span><span class="t">$5K – $10K / month</span></button>
+            <button type="button" class="opt" data-k="D" data-v="$10K–$30K/mo"><span class="k">D</span><span class="t">$10K – $30K / month</span></button>
+            <button type="button" class="opt" data-k="E" data-v="$30K–$50K/mo"><span class="k">E</span><span class="t">$30K – $50K / month</span></button>
+            <button type="button" class="opt" data-k="F" data-v="$50K+/mo"><span class="k">F</span><span class="t">$50K+ / month</span></button>
+          </div>
+          <div class="q-actions"><button type="button" class="ok" data-ok>OK</button><span class="hint">or press <b>A–F</b></span></div>
+        </div>
+
+        <!-- 5. Business type -->
+        <div class="q" data-type="options">
+          <div class="q-head"><span class="q-num">5</span><h2 class="q-title">What type of business are you running?</h2></div>
+          <div class="opts">
+            <button type="button" class="opt" data-k="A" data-v="E-commerce brand"><span class="k">A</span><span class="t">E-commerce brand</span></button>
+            <button type="button" class="opt" data-k="B" data-v="Local business"><span class="k">B</span><span class="t">Local business</span></button>
+            <button type="button" class="opt" data-k="C" data-v="Info product / coaching"><span class="k">C</span><span class="t">Info product / coaching</span></button>
+            <button type="button" class="opt" data-k="D" data-v="Other"><span class="k">D</span><span class="t">Other</span></button>
+          </div>
+          <div class="q-actions"><button type="button" class="ok" data-ok>OK</button><span class="hint">or press <b>A–D</b></span></div>
+        </div>
+
+        <!-- 6. Primary goal -->
+        <div class="q" data-type="options">
+          <div class="q-head"><span class="q-num">6</span><h2 class="q-title">What's your #1 goal right now?</h2></div>
+          <div class="opts">
+            <button type="button" class="opt" data-k="A" data-v="Scale paid ads profitably"><span class="k">A</span><span class="t">Scale paid ads profitably</span></button>
+            <button type="button" class="opt" data-k="B" data-v="Grow my Shopify store"><span class="k">B</span><span class="t">Grow my Shopify store</span></button>
+            <button type="button" class="opt" data-k="C" data-v="New website / funnel build"><span class="k">C</span><span class="t">New website / funnel build</span></button>
+            <button type="button" class="opt" data-k="D" data-v="Full-funnel growth partner"><span class="k">D</span><span class="t">A full-funnel growth partner</span></button>
+          </div>
+          <div class="q-actions"><button type="button" class="ok" data-ok>OK</button><span class="hint">or press <b>A–D</b></span></div>
+        </div>
+
+        <!-- 7. Contact -->
+        <div class="q" data-type="contact">
+          <div class="q-head"><span class="q-num">7</span><h2 class="q-title">Last step — how do we reach you?</h2></div>
+          <label class="c-lab" for="phone">Phone / WhatsApp *</label>
+          <input id="phone" type="tel" autocomplete="tel" />
+          <label class="c-lab" for="q_email">Email *</label>
+          <input class="q-input" id="q_email" type="email" placeholder="name@example.com" autocomplete="email" />
+          <div class="q-actions"><button type="button" class="ok" data-ok>Submit</button><span class="hint">press <b>Enter &crarr;</b></span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- hidden fields for your CRM / Formspree -->
+    <input type="hidden" name="fullName" id="h_name" />
+    <input type="hidden" name="website" id="h_web" />
+    <input type="hidden" name="monthlyRevenue" id="h_rev" />
+    <input type="hidden" name="adBudget" id="h_bud" />
+    <input type="hidden" name="businessType" id="h_type" />
+    <input type="hidden" name="primaryGoal" id="h_goal" />
+    <input type="hidden" name="phone" id="h_phone" />
+    <input type="hidden" name="email" id="h_email" />
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="tf-done" id="tfDone">
+    <div class="tf-check">&#10003;</div>
+    <h2>Application received.</h2>
+    <p>Thanks — we'll review your site and get back to you within 24 hours to book your growth call.</p>
+    <a href="index.html" class="ok" style="text-decoration:none;">Back to home</a>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="tf-nav">
+    <button type="button" id="navUp" aria-label="Previous question" disabled>&#8593;</button>
+    <button type="button" id="navDown" aria-label="Next question">&#8595;</button>
+  </div>
+
+  <div class="tf-err wrap" id="tfErr" style="position:fixed;bottom:26px;left:26px;z-index:41;max-width:60%;"></div>
+
+  <script>
+    (function () {
+      var qs = [].slice.call(document.querySelectorAll('.q'));
+      var total = qs.length, cur = 0, advTimer = null, iti = null;
+      var bar = document.getElementById('barFill');
+      var upBtn = document.getElementById('navUp'), downBtn = document.getElementById('navDown');
+      var errEl = document.getElementById('tfErr');
+      var pre = document.getElementById('preloader');
+      var emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+      function err(m) { errEl.textContent = m || ''; }
+
+      function show(i) {
+        qs.forEach(function (q, idx) { q.classList.toggle('active', idx === i); });
+        cur = i;
+        bar.style.width = ((i + 1) / total * 100) + '%';
+        upBtn.disabled = (i === 0);
+        err('');
+        var inp = qs[i].querySelector('.q-input, #phone');
+        if (inp) setTimeout(function () { try { inp.focus(); } catch (e) {} }, 80);
+      }
+
+      function validate(i) {
+        var q = qs[i], type = q.dataset.type;
+        if (type === 'text') {
+          var v = q.querySelector('.q-input').value.trim();
+          if (!v) { err('Please type your answer to continue.'); return false; }
+          q.dataset.value = v;
+        } else if (type === 'options') {
+          var sel = q.querySelector('.opt.sel');
+          if (!sel) { err('Please choose an option to continue.'); return false; }
+          q.dataset.value = sel.dataset.v;
+        } else if (type === 'contact') {
+          var email = document.getElementById('q_email').value.trim();
+          if (iti && typeof iti.isValidNumber === 'function' && !iti.isValidNumber()) {
+            err('Please enter a valid phone number.'); return false;
+          }
+          if (!iti) {
+            var raw = document.getElementById('phone').value.replace(/\D/g, '');
+            if (raw.length < 6) { err('Please enter a valid phone number.'); return false; }
+          }
+          if (!emailRe.test(email)) { err('Please enter a valid email address.'); return false; }
+        }
+        return true;
+      }
+
+      function collect() {
+        document.getElementById('h_name').value = qs[0].dataset.value || '';
+        document.getElementById('h_web').value  = qs[1].dataset.value || '';
+        document.getElementById('h_rev').value  = qs[2].dataset.value || '';
+        document.getElementById('h_bud').value  = qs[3].dataset.value || '';
+        document.getElementById('h_type').value = qs[4].dataset.value || '';
+        document.getElementById('h_goal').value = qs[5].dataset.value || '';
+        document.getElementById('h_phone').value = (iti && iti.getNumber) ? iti.getNumber() : document.getElementById('phone').value;
+        document.getElementById('h_email').value = document.getElementById('q_email').value.trim();
+      }
+
+      /* ============================================================
+         CRM → GOOGLE SHEET
+         Paste your Google Apps Script Web App URL between the quotes
+         below (see scripts/leads-to-sheet.gs for setup). Until you do,
+         the form still works locally and just shows the success screen.
+         ============================================================ */
+      var SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz7WYvTBKoTQtL3WZLsD8EP3RZTLOSMB_J9xGP9FGkSn8ckVxl8LRukb-NhhOiFgeP9MQ/exec';
+
+      function submit() {
+        collect();
+        // Send the lead to your Google Sheet (fire-and-forget; FormData avoids a CORS preflight)
+        if (SHEET_ENDPOINT.indexOf('http') === 0) {
+          try {
+            fetch(SHEET_ENDPOINT, { method: 'POST', body: new FormData(document.getElementById('applyForm')) })
+              .catch(function (err) { console.error('Lead submit failed:', err); });
+          } catch (err) { console.error('Lead submit failed:', err); }
+        }
+        document.getElementById('tfStage').style.display = 'none';
+        errEl.style.display = 'none';
+        document.querySelector('.tf-nav').style.display = 'none';
+        bar.style.width = '100%';
+        document.getElementById('tfDone').classList.add('show');
+      }
+
+      function next() { if (!validate(cur)) return; if (cur < total - 1) show(cur + 1); else submit(); }
+      function prev() { if (cur > 0) show(cur - 1); }
+
+      // Option cards: select + auto-advance
+      qs.forEach(function (q) {
+        if (q.dataset.type !== 'options') return;
+        var opts = [].slice.call(q.querySelectorAll('.opt'));
+        opts.forEach(function (o) {
+          o.addEventListener('click', function () {
+            opts.forEach(function (x) { x.classList.remove('sel'); });
+            o.classList.add('sel'); err('');
+            clearTimeout(advTimer);
+            advTimer = setTimeout(next, 480);
+          });
+        });
+      });
+
+      document.querySelectorAll('[data-ok]').forEach(function (b) { b.addEventListener('click', next); });
+      upBtn.addEventListener('click', prev);
+      downBtn.addEventListener('click', next);
+      document.getElementById('applyForm').addEventListener('submit', function (e) { e.preventDefault(); next(); });
+
+      // Keyboard: Enter advances; letter keys pick options
+      document.addEventListener('keydown', function (e) {
+        if (pre && !pre.classList.contains('done')) return;
+        if (document.getElementById('tfDone').classList.contains('show')) return;
+        var q = qs[cur];
+        if (e.key === 'Enter') { e.preventDefault(); next(); return; }
+        if (q.dataset.type === 'options') {
+          var opt = q.querySelector('.opt[data-k="' + (e.key || '').toUpperCase() + '"]');
+          if (opt) { e.preventDefault(); opt.click(); }
+        }
+      });
+
+      // International phone field
+      var phoneEl = document.getElementById('phone');
+      if (phoneEl && window.intlTelInput) {
+        iti = window.intlTelInput(phoneEl, {
+          initialCountry: 'us',
+          preferredCountries: ['us', 'ca', 'au', 'gb', 'nz', 'ae', 'sg', 'in'],
+          separateDialCode: true,
+          utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.min.js'
+        });
+      }
+
+      // Preloader → reveal first question
+      function startFlow() {
+        if (pre.classList.contains('done')) return;
+        pre.classList.add('done');
+        show(0);
+      }
+      window.addEventListener('load', function () { setTimeout(startFlow, 1500); });
+      setTimeout(startFlow, 2400); // fallback if load already fired
+    })();
+  </script>
+</body>
+</html>

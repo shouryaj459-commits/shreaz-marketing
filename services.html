@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — SHREAZ MARKETING</title>
+  <meta name="description" content="Meta Ads, Shopify growth, web design and brand strategy — full-funnel performance marketing services from SHREAZ MARKETING." />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---------- The Four Systems (process) ---------- */
+    .systems{border-top:1px solid var(--line);}
+    .system{display:grid;grid-template-columns:1fr;gap:14px;padding:36px 0;border-bottom:1px solid var(--line);}
+    @media(min-width:820px){.system{grid-template-columns:200px 1fr;gap:44px;align-items:start;}}
+    .sys-num{font-weight:800;font-size:clamp(3rem,7vw,5.5rem);line-height:1;letter-spacing:-.04em;
+      color:transparent;-webkit-text-stroke:1px var(--line);transition:-webkit-text-stroke-color .3s;}
+    .system:hover .sys-num{-webkit-text-stroke-color:var(--accent);}
+    .sys-tag{color:var(--accent);font-size:12px;letter-spacing:.22em;text-transform:uppercase;}
+    .sys-title{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.02em;margin:8px 0 12px;}
+    .sys-body p{margin:0 0 18px;font-size:16px;line-height:1.7;max-width:640px;color:var(--muted);}
+    .sys-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr;gap:9px;}
+    @media(min-width:560px){.sys-list{grid-template-columns:1fr 1fr;gap:9px 26px;}}
+    .sys-list li{position:relative;padding-left:22px;color:var(--muted);font-size:14px;line-height:1.5;}
+    .sys-list li::before{content:"→";position:absolute;left:0;color:var(--accent);}
+    .sys-cta{margin-top:44px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="glow" style="width:520px;height:520px;top:-160px;right:-120px;"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- NAV -->
+  <header id="nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="logo"><span class="br">[</span>S.M<span class="br">]</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="services.html" class="active">Services</a>
+        <a href="book.html">Contact</a>
+      </nav>
+      <a href="book.html" class="btn btn-accent btn-sm nav-desktop-cta" data-magnet>Book a Call &rarr;</a>
+      <button id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <div id="mobileMenu">
+      <div class="mobile-inner">
+        <a href="index.html">Home</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="services.html">Services</a>
+        <a href="book.html">Contact</a>
+        <a href="book.html" class="btn btn-accent" style="justify-content:center">Book a Call &rarr;</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section style="padding:150px 0 40px;">
+    <div class="wrap">
+      <p class="reveal pill" style="margin-bottom:26px;"><span class="pulse"></span> What We Do</p>
+      <h1 class="h-mega reveal" style="font-size:clamp(2.8rem,9vw,7rem);">Full-funnel <span class="text-gradient">firepower.</span></h1>
+      <p class="reveal muted" style="max-width:600px;font-size:18px;line-height:1.6;margin-top:26px;">
+        Strategy, creative, media buying and build — one team engineered to compound your revenue. Here's exactly how we do it.
+      </p>
+    </div>
+  </section>
+
+  <!-- OUR SERVICES (the five systems) -->
+  <section class="section-pad" style="padding-top:0;" id="systems">
+    <div class="wrap">
+      <div class="mb-head">
+        <p class="eyebrow reveal">[ Our Services ]</p>
+        <h2 class="display reveal" style="font-size:clamp(2rem,5vw,3.6rem);margin:16px 0 12px;">Everything, under one roof.</h2>
+        <p class="reveal muted" style="max-width:640px;font-size:17px;line-height:1.6;">Five services, operated as one growth engine — engineered to compound, not to just manage accounts.</p>
+      </div>
+
+      <div class="systems">
+        <article class="system reveal">
+          <div class="sys-num">01</div>
+          <div class="sys-body">
+            <span class="sys-tag">System One</span>
+            <h3 class="sys-title">Acquisition</h3>
+            <p>We scale customer acquisition through paid media across the channels that actually move revenue — Meta, Google and TikTok. Your ad account is treated as one ecosystem, not a pile of isolated campaigns, so every dollar is judged on blended return.</p>
+            <ul class="sys-list">
+              <li>Blended ROAS, MER &amp; CAC across every channel</li>
+              <li>Creative performance &amp; fatigue tracking</li>
+              <li>Offer &amp; angle-level conversion analysis</li>
+              <li>Account structure &amp; budget allocation</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="system reveal">
+          <div class="sys-num">02</div>
+          <div class="sys-body">
+            <span class="sys-tag">System Two</span>
+            <h3 class="sys-title">Creative Production</h3>
+            <p>Creative is the single biggest lever in paid media. We produce scroll-stopping static, UGC and motion built around angles that convert — then test relentlessly to find the winners that unlock the next level of spend.</p>
+            <ul class="sys-list">
+              <li>Concept, hook &amp; angle ideation</li>
+              <li>UGC, static &amp; short-form video</li>
+              <li>Systematic creative testing</li>
+              <li>Winner iteration at scale</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="system reveal">
+          <div class="sys-num">03</div>
+          <div class="sys-body">
+            <span class="sys-tag">System Three</span>
+            <h3 class="sys-title">Profit &amp; Data Tracking</h3>
+            <p>We track every dollar to profit — not vanity metrics. Clean, server-side data and full-funnel attribution mean we always know what's really working and where the next dollar earns the most return.</p>
+            <ul class="sys-list">
+              <li>Pixel, CAPI &amp; server-side tracking</li>
+              <li>Blended MER &amp; contribution margin</li>
+              <li>Attribution &amp; reporting dashboards</li>
+              <li>Weekly profit reviews</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="system reveal">
+          <div class="sys-num">04</div>
+          <div class="sys-body">
+            <span class="sys-tag">System Four</span>
+            <h3 class="sys-title">Retention</h3>
+            <p>Acquisition gets the customer; retention makes them profitable. We build email &amp; SMS engines that lift lifetime value and turn one-time buyers into predictable, repeat revenue.</p>
+            <ul class="sys-list">
+              <li>Klaviyo email &amp; SMS flows</li>
+              <li>Segmentation &amp; lifecycle marketing</li>
+              <li>Win-back &amp; loyalty campaigns</li>
+              <li>LTV &amp; repeat-rate growth</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="system reveal">
+          <div class="sys-num">05</div>
+          <div class="sys-body">
+            <span class="sys-tag">System Five</span>
+            <h3 class="sys-title">Web Design &amp; Development</h3>
+            <p>Fast, conversion-first websites and landing pages that turn your paid traffic into booked revenue. Built to load quick, look premium and convert — the foundation every other system runs on.</p>
+            <ul class="sys-list">
+              <li>High-converting landing pages</li>
+              <li>Shopify &amp; custom store builds</li>
+              <li>Mobile-first, fast-loading design</li>
+              <li>Analytics, tracking &amp; CRO</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="sys-cta reveal">
+        <a href="book.html" class="btn btn-white" data-magnet>Get in Touch &rarr;</a>
+        <span class="muted" style="font-size:14px;">Book a free growth audit — no obligation, no hard sell.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-pad" style="padding-top:0;">
+    <div class="wrap">
+      <div class="glass grad-border reveal" style="padding:clamp(40px,6vw,80px);text-align:center;border-radius:32px;">
+        <h2 class="display" style="font-size:clamp(2.2rem,6vw,4.4rem);margin:0;">Ready to <span class="text-accent">scale?</span></h2>
+        <p class="muted" style="max-width:540px;margin:22px auto 34px;font-size:17px;">Book a call and we'll map the fastest path to profitable growth for your brand.</p>
+        <a href="book.html" class="btn btn-accent" data-magnet style="font-size:16px;padding:16px 32px;">Book a Call &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap foot-inner">
+      <div class="foot-top">
+        <a href="index.html" class="logo"><span class="br">[</span>S.M<span class="br">]</span></a>
+        <div class="foot-links">
+          <a href="index.html">Home</a>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="services.html">Services</a>
+          <a href="book.html">Contact</a>
+        </div>
+        <div class="socials"><a href="#" data-magnet aria-label="Instagram">IG</a><a href="#" data-magnet aria-label="LinkedIn">in</a><a href="#" data-magnet aria-label="X">X</a></div>
+      </div>
+      <div class="foot-bottom">
+        <p>&copy; <span id="year"></span> SHREAZ MARKETING. All rights reserved.</p>
+        <p>Performance marketing that actually performs.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

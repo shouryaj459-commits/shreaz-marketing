@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: shreaz-marketing
+    runtime: static
+    buildCommand: "echo 'Static site — no build step needed'"
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
