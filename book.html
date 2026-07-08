@@ -309,7 +309,8 @@
         var dialSel = document.getElementById('dial');
         var code = dialSel ? dialSel.value.replace(/[^\d+]/g, '') : '';
         var num = document.getElementById('phone').value.replace(/[^\d]/g, '');
-        document.getElementById('h_phone').value = (code || '+') + num;
+        // Store as "+<country code> <number>", e.g. "+91 9044258006"
+        document.getElementById('h_phone').value = (code || '+') + ' ' + num;
         document.getElementById('h_email').value = document.getElementById('q_email').value.trim();
       }
 
